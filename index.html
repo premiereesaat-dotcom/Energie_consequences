@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Énergie et mortalité</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday / learning: a clear, honest lesson for lycée students
+   IDEA a precision instrument reading the true toll of each energy, against what we feel
+   PICTURE one dot = one death: a 150 000-person city powered 50 years by each source
+   COLOUR aluminium ground, black ink, orange #ff4f00 for fossil fuels; night #141517
+   TYPE Geist 800 titles + Geist text
+   LAYOUT title over full-width dot rows; then bands: perception, history, disasters, pollution, the oil question, class questions */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#141517);--alu:light-dark(#e9eaec,#1d1f22);--ink:light-dark(#111214,#f1f2f4);--soft:light-dark(#555a62,#a9adb4);--line:light-dark(#cfd1d5,#33363b);--fos:#ff4f00;--low:light-dark(#111214,#f1f2f4);--card:light-dark(#f6f6f7,#1a1c1f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:20px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 Geist,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+.band{padding-block:clamp(28px,4vw,60px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:1180px;margin:0 auto}
+.alu{background:var(--alu)}
+h1{font-size:clamp(32px,4.6vw,50px);line-height:1.05;letter-spacing:-.02em;font-weight:800;margin:0 0 12px;text-wrap:balance;max-width:22ch}
+h2{font-size:clamp(26px,3.2vw,36px);line-height:1.1;letter-spacing:-.02em;font-weight:800;margin:0 0 14px;text-wrap:balance;max-width:28ch}
+h3{font-size:19px;margin:0 0 6px;font-weight:700}
+p{margin:0 0 12px;max-width:68ch}
+.lead{font-size:19px;color:var(--soft);max-width:60ch}
+.small{font-size:14px;color:var(--soft)}
+.key{display:flex;flex-wrap:wrap;gap:18px;margin:18px 0 8px;font-size:15px}
+.key span{display:inline-flex;align-items:center;gap:8px}
+.sw{width:11px;height:11px;border-radius:50%;display:inline-block}
+.rows{margin-top:10px;border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:16px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.row .nm{font-weight:700}
+.row .nm small{display:block;font-weight:400;color:var(--soft);font-size:14px}
+.dots{display:flex;flex-wrap:wrap;gap:2px;padding-top:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--low)}
+.row.fos .dots i{background:var(--fos)}
+.row .n{text-align:right;font-weight:800;font-size:22px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.row .n small{display:block;font-weight:400;font-size:13px;color:var(--soft)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.fig{position:relative;min-height:340px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+svg text{paint-order:stroke;stroke:var(--bg);stroke-width:4px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:700;border-bottom:2px solid var(--ink)}
+td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:13px;padding:1px 8px;border-radius:20px;background:var(--card);border:1px solid var(--line);white-space:nowrap}
+.tag.f{background:var(--fos);color:#fff;border-color:var(--fos)}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(14em,1fr));gap:24px;margin:22px 0}
+.big div{border-top:2px solid var(--ink);padding-top:10px}
+.big b{display:block;font-size:clamp(34px,5vw,52px);line-height:1;font-weight:800;letter-spacing:-.02em}
+.big .o b{color:var(--fos)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(16em,1fr));gap:16px;margin-top:16px}
+.verdict{font-weight:700;font-size:14px;display:block;margin-bottom:6px}
+.v1{color:#1a8a4a}.v2{color:#b86e00}.v3{color:var(--soft)}
+ol.q{padding-left:1.3em;max-width:70ch}ol.q li{margin-bottom:8px}
+ul.src{padding-left:1.1em;font-size:14px;color:var(--soft);columns:2 22em}ul.src li{margin-bottom:5px;break-inside:avoid}
+a{color:inherit;text-decoration-color:var(--fos);text-underline-offset:3px}
+@media(max-width:700px){.grid2{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){body{font-size:16px}.row{grid-template-columns:minmax(0,1fr) auto}.row .dots{grid-column:1/-1;order:3}.row .n{font-size:19px}table{font-size:13px}th,td{padding:6px 4px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0}.stack td::before{content:attr(data-l);color:var(--soft);flex:none}.stack td.num{text-align:right}}
+</style>
+</head>
+<body>
+
+<header class="band alu">
+<div class="wrap">
+<h1>Quelle énergie tue le plus ? Pas celle qui fait le plus peur</h1>
+<p class="lead">Imaginons une ville européenne de 150 000 habitants qui tire toute son électricité d'une seule source pendant 50 ans. Chaque point représente un décès causé par cette production : accidents et pollution de l'air compris.</p>
+<div class="key"><span><i class="sw" style="background:var(--fos)"></i>Combustibles fossiles</span><span><i class="sw" style="background:var(--low)"></i>Autres sources</span></div>
+<div class="rows" id="rows"></div>
+<p class="small" style="margin-top:12px">1 TWh par an ≈ la consommation d'électricité de 150 000 Européens. Taux : Our World in Data, d'après Markandya et Wilkinson (2007) et Sovacool et al. (2016). * Hydraulique : 1,3 décès par TWh en comptant la rupture du barrage de Banqiao (Chine, 1975), 0,04 sans elle.</p>
+</div>
+</header>
+
+<section class="band">
+<div class="wrap grid2">
+<div>
+<h2>Ce que l'on craint n'est pas ce qui tue</h2>
+<p>En 1977, le psychologue Paul Slovic et ses collègues demandent au grand public et à des experts de classer 30 activités selon leur danger. Le public place le nucléaire en tête ; les experts le mettent au 20e rang.</p>
+<p>Pourquoi cet écart ? Les recherches sur la perception du risque montrent que l'on redoute davantage ce qui est :</p>
+<ul>
+<li><b>catastrophique</b> : beaucoup de victimes d'un coup, plutôt qu'une à une ;</li>
+<li><b>invisible et mal connu</b> : la radioactivité ne se voit ni ne se sent ;</li>
+<li><b>subi</b> plutôt que choisi ;</li>
+<li><b>associé à un souvenir terrible</b> : la bombe atomique, Tchernobyl, Fukushima.</li>
+</ul>
+<p>La pollution des centrales à charbon, elle, tue lentement, sans images spectaculaires.</p>
+</div>
+<div>
+<div class="scroll">
+<table>
+<thead><tr><th>Activité (1977)</th><th class="num">Rang public</th><th class="num">Rang experts</th></tr></thead>
+<tbody id="slovic"></tbody>
+</table>
+</div>
+<p class="small" style="margin-top:8px">Rang 1 = jugé le plus dangereux, sur 30 activités. Extrait du classement de Slovic présenté à la NRC (2021).</p>
+</div>
+</div>
+</section>
+
+<section class="band alu">
+<div class="wrap">
+<h2>Deux siècles de charbon : le travail au fond de la mine</h2>
+<p>Au XIXe et au début du XXe siècle, le charbon est presque la seule énergie industrielle. Au Royaume-Uni, 85 000 mineurs meurent dans des accidents entre 1873 et 1953. En France, la catastrophe de Courrières (1906) fait 1 099 morts. Aux États-Unis, la seule série complète depuis 1900 montre l'ampleur puis la chute :</p>
+<div class="fig" id="usfig" role="img" aria-label="Morts dans les mines de charbon américaines, 1900 à 2025"><svg id="us"></svg></div>
+<p class="small">Source : MSHA, Coal Fatalities 1900–2025. La baisse vient de la sécurité (ventilation, réglementation) et de la mécanisation, qui a fait fondre le nombre de mineurs.</p>
+</div>
+</section>
+
+<section class="band">
+<div class="wrap">
+<h2>Les grandes catastrophes : la pire est hydraulique</h2>
+<p>Les accidents spectaculaires marquent les mémoires. Classés par nombre de morts, ils ne suivent pas l'ordre de nos peurs.</p>
+<div class="scroll">
+<table class="stack">
+<thead><tr><th>Année</th><th>Catastrophe</th><th>Source</th><th class="num">Morts</th></tr></thead>
+<tbody id="cata"></tbody>
+</table>
+</div>
+<p class="small" style="margin-top:8px">Le solaire et l'éolien n'ont connu aucune catastrophe de cette ampleur : leurs accidents sont individuels (chutes, électrocutions). Le bilan de Tchernobyl dépend de la méthode : moins de 100 morts confirmées, environ 4 000 à terme selon l'OMS (2005), davantage dans certaines extrapolations.</p>
+</div>
+</section>
+
+<section class="band alu">
+<div class="wrap">
+<h2>Le tueur invisible : la pollution de l'air</h2>
+<p>Les accidents ne sont qu'une petite partie du bilan. Respirer les particules fines issues de la combustion du charbon, du pétrole et du gaz provoque maladies cardiaques, AVC et cancers du poumon.</p>
+<div class="big">
+<div class="o"><b>5,1 millions</b>décès par an dans le monde attribués à la pollution de l'air due aux combustibles fossiles (BMJ, 2023)</div>
+<div><b>210 000</b>morts dans tous les accidents énergétiques recensés de 1874 à 2014, toutes sources confondues</div>
+<div><b>4 000 à 12 000</b>Londoniens tués en cinq jours par le grand smog de charbon de décembre 1952</div>
+</div>
+<p>Autrement dit, la pollution fossile tue en un mois davantage que tous les accidents énergétiques connus depuis 140 ans. Le changement climatique, qui n'est pas compté ici, alourdirait encore ce bilan.</p>
+</div>
+</section>
+
+<section class="band">
+<div class="wrap">
+<h2>Les compagnies pétrolières ont-elles nourri la peur du nucléaire ?</h2>
+<p>La question revient souvent. Les historiens et économistes distinguent ce qui est établi, ce qui est contesté et ce qui relève d'abord d'autres causes.</p>
+<div class="cards">
+<div class="card"><span class="verdict v1">Indices sérieux</span><h3>Après Tchernobyl</h3><p>Une étude d'économistes (2024, encore préliminaire) observe qu'aux États-Unis, les dons des industries fossiles aux élus ont augmenté après 1986 et sont associés à davantage de votes contre le nucléaire. Les journaux qui vivaient le plus de publicités fossiles ont publié plus d'articles anti-nucléaires. Au Royaume-Uni, les députés soutenus par les syndicats de mineurs ont multiplié les discours hostiles. Les auteurs précisent que ce n'est pas une preuve de causalité.</p></div>
+<div class="card"><span class="verdict v2">Contesté</span><h3>Un pétrolier à l'origine des Amis de la Terre ?</h3><p>On lit souvent que Robert O. Anderson, patron de la compagnie pétrolière ARCO, aurait financé la création de l'ONG anti-nucléaire Friends of the Earth en 1969. Des historiens jugent cette histoire infondée : les sommes documentées ont été versées à une autre structure, sans lien démontré avec le nucléaire.</p></div>
+<div class="card"><span class="verdict v3">Causes principales</span><h3>Une peur qui a d'autres racines</h3><p>L'association avec la bombe atomique, la guerre froide, les accidents de Three Mile Island, Tchernobyl et Fukushima, et les mécanismes de perception du risque suffisent largement à expliquer la méfiance. Les intérêts fossiles ont pu en profiter, sans en être la source.</p></div>
+</div>
+<p style="margin-top:18px">À retenir : la mortalité n'est pas le seul critère. Le nucléaire pose d'autres vraies questions (déchets à très longue durée de vie, coûts, prolifération, dépendance à l'uranium importé) ; le solaire et l'éolien ont aussi leurs limites (intermittence, matières premières). Mais sur le nombre de vies perdues, les données sont nettes.</p>
+</div>
+</section>
+
+<section class="band alu">
+<div class="wrap grid2">
+<div>
+<h2>Questions pour la classe</h2>
+<ol class="q">
+<li>Pourquoi faut-il comparer les morts <b>par TWh produit</b> plutôt qu'en nombre total ?</li>
+<li>Le barrage de Banqiao fait passer l'hydraulique de 0,04 à 1,3 décès par TWh. Faut-il compter une catastrophe exceptionnelle dans une moyenne ?</li>
+<li>Pourquoi un accident de 2 000 morts nous marque-t-il plus que des milliers de décès dispersés dus à la pollution ?</li>
+<li>Les décès de Fukushima sont presque tous liés à l'évacuation. Faut-il les attribuer au nucléaire ?</li>
+<li>Quels critères, à part la mortalité, choisiriez-vous pour juger une source d'énergie ?</li>
+</ol>
+</div>
+<div>
+<h2>Sources</h2>
+<ul class="src">
+<li><a href="https://ourworldindata.org/safest-sources-of-energy">Our World in Data : sources d'énergie les plus sûres</a></li>
+<li><a href="https://ourworldindata.org/what-was-the-death-toll-from-chernobyl-and-fukushima">Our World in Data : bilan de Tchernobyl et Fukushima</a></li>
+<li><a href="https://researchonline.lshtm.ac.uk/id/eprint/4671605">Lelieveld et al. (2023), BMJ</a></li>
+<li><a href="https://ideas.repec.org/a/eee/energy/v90y2015ip2p2016-2027.html">Sovacool et al. (2015), accidents énergétiques 1874–2014</a></li>
+<li><a href="https://www.msha.gov/coal-fatalities">MSHA : morts dans les mines de charbon (États-Unis)</a></li>
+<li><a href="https://www.victorianweb.org/victorian/technology/energy/paxman2.html">Victorian Web : accidents miniers britanniques</a></li>
+<li><a href="https://www.annales.org/re/2006/re42/saintraymond.pdf">Annales des Mines : Courrières</a></li>
+<li><a href="https://www.britannica.com/event/Great-Smog-of-London">Britannica : smog de Londres</a></li>
+<li><a href="https://www.nrc.gov/docs/ML2119/ML21197A174.pdf">Slovic, The Psychology of Risk (NRC, 2021)</a></li>
+<li><a href="https://conference.nber.org/conf_papers/f205791.pdf">Makarin, Qian et Wang (2024), nucléaire et Tchernobyl</a></li>
+<li><a href="https://drilled.media/news/rad-future">Drilled : le mythe du financement pétrolier des Amis de la Terre</a></li>
+<li><a href="https://en.wikipedia.org/wiki/1979_Machchhu_dam_failure">Wikipedia : barrage Machchu-II</a></li>
+</ul>
+</div>
+</div>
+</section>
+
+<script>
+{
+const rates=[
+{n:'Charbon',s:'mines + combustion',r:24.62,f:1},
+{n:'Pétrole',s:'extraction + combustion',r:18.43,f:1},
+{n:'Biomasse',s:'bois, déchets',r:4.63,f:0},
+{n:'Gaz naturel',s:'',r:2.82,f:1},
+{n:'Hydraulique *',s:'barrages',r:1.3,f:0},
+{n:'Éolien',s:'',r:0.04,f:0},
+{n:'Nucléaire',s:'Tchernobyl et Fukushima inclus',r:0.03,f:0},
+{n:'Solaire',s:'',r:0.02,f:0}];
+const fr=(v,d)=>v.toLocaleString('fr-FR',{maximumFractionDigits:d||0});
+document.getElementById('rows').innerHTML=rates.map(x=>{const k=Math.max(1,Math.round(x.r*50));return `<div class="row ${x.f?'fos':''}"><div class="nm">${x.n}${x.s?`<small>${x.s}</small>`:''}</div><div class="dots" aria-label="${k} décès">${'<i></i>'.repeat(k)}</div><div class="n">${fr(k)}<small>${fr(x.r,2)} / TWh</small></div></div>`}).join('');
+
+const slo=[['Nucléaire',1,20],['Véhicules à moteur',2,1],['Armes de poing',3,4],['Tabac',4,2],['Électricité non nucléaire',17,9],['Radiographies',22,7],['Vaccinations',30,25]];
+document.getElementById('slovic').innerHTML=slo.map(x=>`<tr${x[0]==='Nucléaire'?' style="font-weight:700"':''}><td>${x[0]}</td><td class="num">${x[1]}</td><td class="num">${x[2]}</td></tr>`).join('');
+
+const cata=[
+[1975,'Rupture du barrage de Banqiao (Chine)','Hydraulique',0,'~171 000'],
+[1979,'Rupture du barrage Machchu-II (Inde)','Hydraulique',0,'1 800 à 25 000'],
+[1952,'Grand smog de Londres','Charbon',1,'4 000 à 12 000'],
+[1986,'Tchernobyl (URSS)','Nucléaire',0,'30 immédiats ; ~4 000 à terme (OMS)'],
+[2011,'Fukushima (Japon), surtout l’évacuation','Nucléaire',0,'2 314'],
+[1963,'Vague du barrage du Vajont (Italie)','Hydraulique',0,'~1 900 à 2 500'],
+[1906,'Coup de poussier de Courrières (France)','Charbon',1,'1 099'],
+[1984,'Explosion de gaz de San Juanico (Mexique)','Gaz',1,'~500'],
+[1907,'Mine de Monongah (États-Unis)','Charbon',1,'362'],
+[1988,'Plateforme Piper Alpha (mer du Nord)','Pétrole et gaz',1,'167']];
+document.getElementById('cata').innerHTML=cata.map(c=>`<tr><td data-l="Année">${c[0]}</td><td data-l="Catastrophe">${c[1]}</td><td data-l="Source"><span class="tag ${c[3]?'f':''}">${c[2]}</span></td><td data-l="Morts" class="num">${c[4]}</td></tr>`).join('');
+
+const us=[1489,1574,1724,1926,1995,2232,2138,3242,2445,2642,2821,2656,2419,2785,2454,2269,2226,2696,2580,2323,2272,1995,1984,2462,2402,2518,2234,2231,2176,2187,2063,1463,1207,1064,1226,1242,1342,1413,1105,1078,1388,1266,1471,1451,1298,1068,968,1158,999,585,643,785,548,461,396,420,448,478,358,293,325,294,289,284,242,259,233,222,311,203,260,181,156,132,133,155,141,139,106,144,133,153,122,70,125,68,89,63,53,68,66,61,55,47,45,47,39,30,29,35,38,42,28,30,28,23,47,34,30,18,48,20,20,20,16,12,8,15,12,12,5,11,11,9,10,8];
+const total=us.reduce((a,b)=>a+b,0);
+const svg=document.getElementById('us');
+const draw=()=>{
+const W=svg.clientWidth,H=svg.clientHeight;if(!W)return;
+const narrow=W<520,L=narrow?44:58,R=narrow?14:24,T=46,B=30;
+const x=i=>L+i/(us.length-1)*(W-L-R),y=v=>H-B-v/3500*(H-B-T);
+const pts=us.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' L');
+const pk=us.indexOf(Math.max(...us)),last=us.length-1;
+let g='';
+[0,1000,2000,3000].forEach(v=>{g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-8}" y="${y(v)+4}" text-anchor="end" font-size="13" fill="var(--soft)">${fr(v)}</text>`});
+(narrow?[1900,1950,2000]:[1900,1925,1950,1975,2000,2025]).forEach(yr=>{g+=`<text x="${x(yr-1900)}" y="${H-8}" text-anchor="middle" font-size="13" fill="var(--soft)">${yr}</text>`});
+g+=`<path d="M${pts} L${x(last)},${y(0)} L${x(0)},${y(0)}Z" fill="var(--fos)" fill-opacity=".18"/><path d="M${pts}" fill="none" stroke="var(--fos)" stroke-width="2.2"/>`;
+g+=`<circle cx="${x(pk)}" cy="${y(us[pk])}" r="4.5" fill="var(--fos)"/><text x="${x(pk)+10}" y="${y(us[pk])+4}" font-size="14" font-weight="700" fill="var(--ink)">1907 : ${fr(us[pk])} morts</text>`;
+g+=`<circle cx="${x(last)}" cy="${y(us[last])}" r="4.5" fill="var(--fos)"/><text x="${x(last)}" y="${y(us[last])-14}" text-anchor="end" font-size="14" font-weight="700" fill="var(--ink)">2025 : ${us[last]} morts</text>`;
+g+=`<text x="${L}" y="20" font-size="15" font-weight="700" fill="var(--ink)">${fr(total)} morts${narrow?', 1900–2025':' dans les mines de charbon américaines, 1900–2025'}</text>`;
+svg.innerHTML=g;
+};
+const ro=new ResizeObserver(draw);ro.observe(svg);
+}
+</script>
+</body>
+</html>
